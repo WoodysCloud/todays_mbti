@@ -25,15 +25,77 @@
           slideMargin: 10,
           onSliderLoad: function(){ $("#edd").css("visibility", "visible").animate({opacity:1}); }
         });
+      $('.bxslider1').bxSlider({ // 클래스명 주의!
+          auto: true, // 자동으로 애니메이션 시작
+          speed: 500,  // 애니메이션 속도
+          pause: 3000,  // 애니메이션 유지 시간 (1000은 1초)
+          pager: true, // 페이지 표시 보여짐
+          controls: false,
+          minSlides: 1,
+          maxSlides: 1,
+          slideWidth: 400,
+          slideMargin: 10,
+          onSliderLoad: function(){ $("#edd").css("visibility", "visible").animate({opacity:1}); }
+        });
      })
+    </script>
+    <script>
+        // select the strip
+        $(".netflixhover").each(function() {
+
+          // change the number of the "li" elements and the strip will be fine anyway
+          var wUl = $(this).find("ul").width();
+          var nLi = $(this).find("ul").children().length;
+          var wElement = 100 / nLi;
+
+          $("li").css("width", wElement + "%");
+
+          // hover "li"
+          $(this).find("li").hover(
+
+            // mouse In
+            function() {
+              $(this).toggleClass("hover");
+
+              var scaleFactor = 1.8;
+              var wBigElement = $(this).width() * scaleFactor;
+              var translation = (wBigElement - $(this).width()) / 2;
+
+              var item = $(this).parent().children();
+
+              $(this).css("transform", "scale(" + scaleFactor + ")");
+
+              if ($(this).is(":nth-child(1)")) {
+                item.slice(1,nLi).css("transform", "translate(" + translation * 2 + "px,  0px)");
+              }
+
+                for (var i = 2; i <= nLi - 1; i++) {
+                  if ($(this).is(":nth-child(" + i + ")")) {
+                    item.slice(0,i-1).css("transform", "translate(-" + translation + "px,  0px)")
+                     .end().slice(i).css("transform", "translate(" + translation + "px,  0px)");
+                  }
+                }
+
+              if ($(this).is(":nth-child(" + nLi + ")")) {
+                item.slice(0,(nLi-1)).css("transform", "translate(-" + translation * 2 + "px,  0px)");
+              }
+
+            // mouse Out
+            }, function() {
+                $(this).toggleClass("hover");
+                $(this).css("transform", "scale(1)");
+                $("li").not(this).css("transform", "translate(0px,  0px)");
+            }
+          );
+        });
     </script>
     <style>
         @font-face {
-    font-family: 'Cafe24SsurroundAir';
-    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2105_2@1.0/Cafe24SsurroundAir.woff') format('woff');
-    font-weight: normal;
-    font-style: normal;
-}
+            font-family: 'Cafe24SsurroundAir';
+            src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2105_2@1.0/Cafe24SsurroundAir.woff') format('woff');
+            font-weight: normal;
+            font-style: normal;
+        }
         .navbar-light{
             height: 80px; margin-bottom: 0; font-weight: bold; font-family: 'Cafe24SsurroundAir';
         }
@@ -108,6 +170,10 @@
         }
         .category{
             width: 97.8%;
+        }
+        .recommend{
+            width: 80%;
+            height: 500px;
         }
     </style>
 </head>
@@ -208,7 +274,7 @@
     <div id="edd" style="visibility:hidden;opacity:0">
         <div style="display: flex; justify-content: center; ">
             <div>
-                <ul class="bxslider" >
+                <ul class="bxslider" class="box">
                   <li>
                       <a href="#">
                           <img src="https://www.ikea.com/kr/ko/images/products/lilltjaern-mirror__1031301_pe836473_s5.jpg?f=xl" alt="" title="이미지1">
@@ -245,8 +311,125 @@
     </div>
 </header>
 
-<article>
-
+<article class="recommend" style="display: flex; justify-content: space-between; margin: auto; font-family: Cafe24SsurroundAir; box-sizing: border-box">
+    <div class="container">
+        <div class="row">
+            <div class="col">
+                당신의 MBTI's 무드 PICK:
+                <div class="section">
+                    <ul class="bxslider1">
+                        <li>
+                            <a href="#">
+                                <img src="https://www.ikea.com/kr/ko/images/products/granboda-nest-of-tables-set-of-3__0836333_pe672714_s5.jpg?f=xl" alt="" title="img1">
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#">
+                                <img src="https://www.ikea.com/ext/ingkadam/m/2d99adc5e2dd1f6a/original/PH165566-crop001.jpg?f=l" alt="" title="img2">
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#">
+                                <img src="https://image.ohou.se/i/bucketplace-v2-development/uploads/productions/162303802572522809.jpeg?gif=1&w=1280&h=1280&c=c" alt="" title="img3">
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#">
+                                <img src="https://image.ohou.se/i/bucketplace-v2-development/uploads/productions/162424305319088723.jpeg?gif=1&w=640&h=640&c=c" alt="" title="img4">
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#">
+                                <img src="https://image.ohou.se/i/bucketplace-v2-development/uploads/cards/snapshots/164137547032095225.jpeg?gif=1&w=1536" alt="" title="img5">
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#">
+                                <img src="https://www.ikea.com/kr/ko/images/products/granboda-nest-of-tables-set-of-3__0836333_pe672714_s5.jpg?f=xl" alt="" title="img1">
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#">
+                                <img src="https://www.ikea.com/ext/ingkadam/m/2d99adc5e2dd1f6a/original/PH165566-crop001.jpg?f=l" alt="" title="img2">
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#">
+                                <img src="https://image.ohou.se/i/bucketplace-v2-development/uploads/productions/162303802572522809.jpeg?gif=1&w=1280&h=1280&c=c" alt="" title="img3">
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#">
+                                <img src="https://image.ohou.se/i/bucketplace-v2-development/uploads/productions/162424305319088723.jpeg?gif=1&w=640&h=640&c=c" alt="" title="img4">
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#">
+                                <img src="https://image.ohou.se/i/bucketplace-v2-development/uploads/cards/snapshots/164137547032095225.jpeg?gif=1&w=1536" alt="" title="img5">
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            <div class="col">
+                당신의 MBTI's 소품 PICK:
+                <div class="section">
+                    <ul class="bxslider1">
+                        <li>
+                            <a href="#">
+                                <img src="https://www.ikea.com/kr/ko/images/products/granboda-nest-of-tables-set-of-3__0836333_pe672714_s5.jpg?f=xl" alt="" title="img1">
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#">
+                                <img src="https://www.ikea.com/ext/ingkadam/m/2d99adc5e2dd1f6a/original/PH165566-crop001.jpg?f=l" alt="" title="img2">
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#">
+                                <img src="https://image.ohou.se/i/bucketplace-v2-development/uploads/productions/162303802572522809.jpeg?gif=1&w=1280&h=1280&c=c" alt="" title="img3">
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#">
+                                <img src="https://image.ohou.se/i/bucketplace-v2-development/uploads/productions/162424305319088723.jpeg?gif=1&w=640&h=640&c=c" alt="" title="img4">
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#">
+                                <img src="https://image.ohou.se/i/bucketplace-v2-development/uploads/cards/snapshots/164137547032095225.jpeg?gif=1&w=1536" alt="" title="img5">
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#">
+                                <img src="https://www.ikea.com/kr/ko/images/products/granboda-nest-of-tables-set-of-3__0836333_pe672714_s5.jpg?f=xl" alt="" title="img1">
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#">
+                                <img src="https://www.ikea.com/ext/ingkadam/m/2d99adc5e2dd1f6a/original/PH165566-crop001.jpg?f=l" alt="" title="img2">
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#">
+                                <img src="https://image.ohou.se/i/bucketplace-v2-development/uploads/productions/162303802572522809.jpeg?gif=1&w=1280&h=1280&c=c" alt="" title="img3">
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#">
+                                <img src="https://image.ohou.se/i/bucketplace-v2-development/uploads/productions/162424305319088723.jpeg?gif=1&w=640&h=640&c=c" alt="" title="img4">
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#">
+                                <img src="https://image.ohou.se/i/bucketplace-v2-development/uploads/cards/snapshots/164137547032095225.jpeg?gif=1&w=1536" alt="" title="img5">
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
 </article>
 
 <footer>

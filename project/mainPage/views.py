@@ -8,3 +8,7 @@ def main(request):
                  'INTJ','INTP','ISFJ','ISFP','ISTJ','ISTP'],
                }
     return render(request, 'mainPage/main.html',context)
+
+def test(request):
+    print('test 페이지')
+    return render(request, 'mainPage/test.html')
