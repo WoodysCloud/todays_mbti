@@ -12,3 +12,7 @@ def main(request):
 def test(request):
     print('test 페이지')
     return render(request, 'mainPage/test.html')
+
+def board(request):
+    print('게시판')
+    return render(request, 'mainPage/board.html')
