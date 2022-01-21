@@ -1,1 +1,1 @@
-# 오늘의 MBTI
+# 오늘의 MBTI zz
