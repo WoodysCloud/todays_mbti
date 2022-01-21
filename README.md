@@ -1,1 +1,1 @@
-# 오늘의 MBTI hihihihi
+# 오늘의 MBTI hihihihiaaaaaa
