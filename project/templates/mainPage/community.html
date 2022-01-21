@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+
+    {% load static %}
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/bxslider/4.2.12/jquery.bxslider.css">
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/bxslider/4.2.12/jquery.bxslider.min.js"></script><script type="text/css" src="{% static 'main.css' %}"></script>
+    <script>
+        $(function () {
+            $('.comment').click(function () {
+                $.ajax({
+                    url: "http://127.0.0.1:8000/mainPage/comment",
+                    success: function (res) {
+                        console.log("ajax 통신 성공")
+                        console.log(res)
+                        $('.result').html(res)
+                    },
+                    error: function (res) {
+                        console.log('서버 오류')
+                        print('서버 오류')
+                    }
+                })
+            })
+        })
+    </script>
+    <style>
+        @font-face {
+            font-family: 'Cafe24SsurroundAir';
+            src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2105_2@1.0/Cafe24SsurroundAir.woff') format('woff');
+            font-weight: normal;
+            font-style: normal;
+        }
+        .navbar-light{
+            height: 80px; margin-bottom: 0; font-weight: bold; font-family: 'Cafe24SsurroundAir';
+        }
+        .container-fluid{
+            padding-top: 6px; position: fixed; background: #FFF;
+            border-bottom: 1px solid #dedede; width: 100%; height: 75px; margin-top: -10px; z-index: 2;
+        }
+        nav > div > a {
+            line-height: 50px;
+            text-align: center;
+            padding: 0 0 0 7%;
+        }
+        #auth{
+            padding: 0 3% 0 0;
+        }
+        #auth > a{
+            text-decoration-line: none;
+            color: black;
+            padding-right: 5px;
+        }
+        .comment {
+            background: rgba(0,0,0,0);
+            border: 0;
+            color: darkgrey;
+            padding-left: 0;
+        }
+        .dropdown-toggle::after {
+            content: none;
+        }
+    </style>
+</head>
+<body style="font-family: Cafe24SsurroundAir">
+<header>
+    <nav class="navbar navbar-light bg-light">
+      <div class="container-fluid">
+        <a class="navbar-brand" href="#">
+          <img src="https://image.rocketpunch.com/company/2425/bucketplace_logo_1520495612.png?s=400x400&t=inside"
+               alt="" width="50" height="50" class="img-fluid rounded">
+            <div id="auth">
+                <a href="">글쓰기</a>
+                <a href="##">로그인</a>
+                <a href="###">회원가입</a>
+            </div>
+        </a>
+      </div>
+    </nav>
+    <ul class="nav nav-tabs" style="justify-content: center; font-family: 'Cafe24SsurroundAir'; font-weight: bold">
+      <li class="nav-item dropdown">
+        <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#"
+           style="color: #333;" role="button" aria-expanded="false">MBTI</a>
+        <ul class="dropdown-menu" style="height: 500px; overflow: auto">
+            {% for one in mbti %}
+                <a id="mbti_16" href="#">
+                    <img src="https://image.ohou.se/i/bucketplace-v2-development/uploads/category/store_home_categories/163572945028172903.png?gif=1&w=180&h=180&c=c">
+                    <li><a class="dropdown-item" href="#" style="text-align: center; " >{{ one }}</a></li>
+                </a>
+            {% endfor %}
+
+        </ul>
+      </li>
+      <li class="nav-item dropdown">
+        <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#"
+           style="color: #333" role="button" aria-expanded="false">무드</a>
+        <ul class="dropdown-menu">
+          <li><a class="dropdown-item" href="#">미니멀</a></li>
+          <li><a class="dropdown-item" href="#">모던</a></li>
+          <li><a class="dropdown-item" href="#">개성</a></li>
+            <li><a class="dropdown-item" href="#">내추럴</a></li>
+        </ul>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="#" style="color: #333">커뮤니티</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="https://www.16personalities.com/ko/%EB%AC%B4%EB%A3%8C-%EC%84%B1%EA%B2%A9-%EC%9C%A0%ED%98%95-%EA%B2%80%EC%82%AC"
+           style="color: #333" target='_blank'>퀴즈</a>
+      </li>
+    </ul>
+</header>
+{% if board %}
+    {% for data in board %}
+        <div class="container">
+            <div class="row" style="margin: 0.4rem 0 0.4rem 0;">
+                <div class="col-auto me-auto" style="font-weight: bold">{{ data.writer }}</div>
+                <div class="col-auto dropdown">
+                    <a class="dropdown-toggle" data-bs-toggle="dropdown" href="#" style="color: #333; margin-top: 2px" role="button" aria-expanded="false">
+                        <svg xmlns="http://www.w3.org/2000/svg" height="24" viewBox="0 0 24 24" width="24">
+                            <path d="M0 0h24v24H0z" fill="none"/>
+                            <path d="M6 10c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2zm12 0c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2zm-6 0c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2z"/>
+                        </svg>
+                    </a>
+                        <ul class="dropdown-menu">
+                            <li><a class="dropdown-item" href="#">게시물 수정</a></li>
+                            <li><a class="dropdown-item" href="#">게시물 삭제</a></li>
+                        </ul>
+                </div>
+            </div>
+            <div class="row">
+                <img src="https://image.ohou.se/i/bucketplace-v2-development/uploads/cards/snapshots/164135347807448952.jpeg?gif=1&w=850">
+            </div>
+            <div class="row" style="margin: 0.3rem 0 0.3rem 0;">
+                <div class="col-1" style="padding-left: 0">
+                    <button style="background: rgba(0,0,0,0); border: 0"><svg xmlns="http://www.w3.org/2000/svg" height="24" viewBox="0 0 24 24" width="24"><path d="M0 0h24v24H0z" fill="none"/><path d="M16.5 3c-1.74 0-3.41.81-4.5 2.09C10.91 3.81 9.24 3 7.5 3 4.42 3 2 5.42 2 8.5c0 3.78 3.4 6.86 8.55 11.54L12 21.35l1.45-1.32C18.6 15.36 22 12.28 22 8.5 22 5.42 19.58 3 16.5 3zm-4.4 15.55l-.1.1-.1-.1C7.14 14.24 4 11.39 4 8.5 4 6.5 5.5 5 7.5 5c1.54 0 3.04.99 3.57 2.36h1.87C13.46 5.99 14.96 5 16.5 5c2 0 3.5 1.5 3.5 3.5 0 2.89-3.14 5.74-7.9 10.05z"/></svg></button>
+                </div>
+                <div class="col-1" style="padding-left: 0;">
+                    <button style="background: rgba(0,0,0,0); border: 0"><svg xmlns="http://www.w3.org/2000/svg" height="24" viewBox="0 0 24 24" width="24"><path d="M0 0h24v24H0V0z" fill="none"/><path d="M20 2H4c-1.1 0-2 .9-2 2v18l4-4h14c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2zm0 14H6l-2 2V4h16v12z"/></svg></button>
+                </div>
+            </div>
+            <div class="row">
+                <p style="margin-bottom: 0">
+                    <span style="font-weight: bold;">게시글 작성자(bold)</span>
+                    <span>{{ data.content }}ㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋ</span>
+                </p>
+            </div>
+            <div class="row">
+                <div class="col-4">
+                    <button class="comment">View all comments...</button>
+                    <p class="result"></p>
+                </div>
+            </div>
+{#            <div class="row">#}
+{#                <div class="col-2">#}
+{#                    {% if data.created_string == False %}#}
+{#                        <script>console.log("{{ mainPage.registered_date }}")</script>#}
+{#                        {{ data.created|date:'m월 d일' }}#}
+{#                    {% else %}#}
+{#                        <script>console.log({{ mainPage.registered_date }})</script>#}
+{#                        {{ data.created_string }}#}
+{#                    {% endif %}#}
+{#                </div>#}
+{#            </div>#}
+        </div>
+        <hr>
+    {% endfor %}
+{% endif %}
+</body>
+</html>

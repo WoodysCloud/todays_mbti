@@ -21,5 +21,6 @@ import mainPage.views
 urlpatterns = [
     path('', mainPage.views.main),
     path('test', mainPage.views.test),
-    path('board', mainPage.views.board),
+    path('community', mainPage.views.community),
+    path('comment', mainPage.views.comment),
 ]

@@ -1,15 +1,36 @@
 from django.shortcuts import render
 
 # Create your views here.
-from mainPage.models import Interior_obj
+from mainPage.models import Interior_obj, Board, Comment
 
 import random
 
 def main(request):
     print('mainPage 호출됨')
+
+    # 회원 mbti에 해당하는 best mood에서 랜덤 10개
+    mood = list(Interior_obj.objects.filter(individuality=1))
+    print("mood data 가져온 것: ", mood)
+    moodpick = random.sample(mood, 10)
+
+    # 회원 mbti에 해당하는 top10 소품 10개
+    objpick = Interior_obj.objects.order_by('-enfj')[:10]
+
+    # 잘 넘어오는지 확인
+    print("무드 Random10 >> ", moodpick)
+    print("소품 Top10 >> ", objpick)
+
+    # 딕셔너리 형태로 넘겨주기
+    context = {
+        'mood': moodpick,
+        'obj': objpick
+    }
+
     context = {'mbti': ['ENFJ','ENFP','ENTJ','ENTP','ESFJ',
                  'ESFP','ESTJ','ESTP','INFJ','INFP',
                  'INTJ','INTP','ISFJ','ISFP','ISTJ','ISTP'],
+               'mood': moodpick,
+               'obj': objpick,
                }
     return render(request, 'mainPage/main.html',context)
 
@@ -36,7 +57,25 @@ def test(request):
 
     return render(request, 'mainPage/test.html', context)
 
-def board(request):
+def community(request):
     print('게시판')
-    return render(request, 'mainPage/board.html')
 
+    board_list = Board.objects.order_by('-id')
+    print("게시물 전체 조회 >> ", board_list)
+
+    context = {
+        'board': board_list,
+    }
+    return render(request, 'mainPage/community.html', context)
+
+def comment(request):
+    print('view all comments')
+
+    comments = Comment.objects.order_by('-id')
+    print("댓글 전체 조회 >> ", comments)
+
+    context = {
+        'comments': comments,
+    }
+
+    return render(request, 'mainPage/comment.html', context)
