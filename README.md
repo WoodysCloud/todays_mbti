@@ -1,1 +1,1 @@
-# 오늘의 MBTI fuckyou
+# 오늘의 MBTI
